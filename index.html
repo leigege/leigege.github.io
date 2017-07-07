@@ -331,15 +331,14 @@
 
       
         
-          
-            <p>1、Fiddler是什么？<br>Fiddler是位于客户端和服务器端的HTTP代理，也是目前最常用的http抓包工具之一 。 它能够记录客户端和服务器之间的所有 HTTP请求，可以针对特定的HTTP请求，分析请求数据、设置断点、调试web应用、修改请求的数据，甚至可以修改服务器返回的数据，功能非常强大，是web调试的利器。<br>既然是代理，也就是说：客户端的所有请求都要先经过Fiddler，然后转发到相应的服务器，反之，服务器端的所有响应，也都会先经过Fiddler然后发送到客户端，基于这个原因，Fiddler支持所有可以设置http代理为127.0.0.1:8888的浏览器和应用程序。<br>&lt;!– more –></p>
-<p>Fiddler 作为系统代理，当启用 Fiddler 时，IE 的PROXY 设定会变成 127.0.0.1:8888<br>工作原理<br><img src="/images/fiddler6.png" alt=""><br>2、Fiddler界面介绍<br><img src="/images/fiddler1.png" alt=""></p>
-<p>四大常用板块<br>1.Fiddler的菜单栏，上图绿色部分。包括捕获http请求，停止捕获请求，保存http请求，载入本地session、设置捕获规则等功能。</p>
-<p>2.Fiddler的工具栏,上图红色部分。包括Fiddler针对当前view的操作（暂停，清除session,decode模式、清除缓存等）。<br>3.web Session面板，上图黄色区域，主要是Fiddler抓取到的每条http请求（每一条称为一个session）,主要包含了请求的url，协议，状态码，body等信息，详细的字段含义如下图所示：<br><img src="/images/fiddler2.png" alt=""><br>4.详情和数据统计面板。针对每条http请求的具体统计（例如发送/接受字节数，发送/接收时间，还有粗略统计世界各地访问该服务器所花费的时间）和数据包分析。如inspector面板下，提供headers、textview、hexview,Raw等多种方式查看单条http请求的请求报文的信息：<br><img src="/images/fiddler3.png" alt=""><br>composer面板下，则可以模拟向相应的服务器发送数据的过程（不错，这就是灌水机器人的基本原理,也可以是部分http flood的一种方式）<br><img src="/images/fiddler4.png" alt=""></p>
-<p>需要注意的是#号列中的图标，每种图标代表不同的相应类型，具体的类型包括：<br><img src="/images/fiddler5.png" alt=""></p>
-<p>另外可以chrome下载插件Proxy SwitchySharp切换代理</p>
-
-          
+          <p>1、Fiddler是什么？<br>Fiddler是位于客户端和服务器端的HTTP代理，也是目前最常用的http抓包工具之一 。 它能够记录客户端和服务器之间的所有 HTTP请求，可以针对特定的HTTP请求，分析请求数据、设置断点、调试web应用、修改请求的数据，甚至可以修改服务器返回的数据，功能非常强大，是web调试的利器。<br>既然是代理，也就是说：客户端的所有请求都要先经过Fiddler，然后转发到相应的服务器，反之，服务器端的所有响应，也都会先经过Fiddler然后发送到客户端，基于这个原因，Fiddler支持所有可以设置http代理为127.0.0.1:8888的浏览器和应用程序。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/07/fiddler/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -448,18 +447,14 @@
 
       
         
-          
-            <p>1、工作原理<br><img src="/images/http1.png" alt=""><br>&lt;!– more –><br>2、客户端请求消息格式<br>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。<br><img src="/images/http2.png" alt=""></p>
-<p>3、请求样例<br><img src="/images/http3.png" alt=""><br>4、服务端相应消息格式<br><img src="/images/http4.png" alt=""><br>服务器和客户端的交互仅限于请求/响应过程，结束之后便断开， 在下一次请求服务器会认为新的客户端;<br>为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，<br>Cookie通过在客户端记录信息确定用户身份<br>Session通过在服务器端记录信息确定用户身份<br>5、URL介绍<br>统一资源定位符（URL，英语 Uniform / Universal Resource Locator的缩写）是用于完整地描述Internet上网页和其他资源的地址的一种标识方法。<br>URL格式：<br>基本格式如下 schema://host<a href="#">:port#</a>/path/…/<a href="#">?query-string</a><a href="#">#anchor</a><br>schema 协议(例如：http, https, ftp)<br>host 服务器的IP地址或者域名<br>port# 服务器的端口（如果是走协议默认端口，缺省端口80）<br>path 访问资源的路径<br>query-string 参数，发送给http服务器的数据<br>anchor- 锚（跳转到网页的指定锚点位置）<br><img src="/images/http5.png" alt=""><br>例子:<br><a href="http://www.sina.com.cn/" target="_blank" rel="external">http://www.sina.com.cn/</a><br><a href="http://192.168.0.116:8080/index.jsp" target="_blank" rel="external">http://192.168.0.116:8080/index.jsp</a><br><a href="http://item.jd.com/11052214.html#product-detail" target="_blank" rel="external">http://item.jd.com/11052214.html#product-detail</a><br><a href="http://www.website.com/test/test.aspx?name=sv&amp;x=true#stuff" target="_blank" rel="external">http://www.website.com/test/test.aspx?name=sv&amp;x=true#stuff</a></p>
-<p>6、常用的消息请求头<br>Host<br>Host初始URL中的主机和端口,用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的<br>Connection<br>表示客户端与服务连接类型；<br>client 发起一个包含Connection:keep-alive的请求<br>server收到请求后，如果server支持keepalive，回复一个包含Connection:keep-alive的响应，不关闭连接，否则回复一个包含Connection:close的响应，关闭连接。<br>如果client收到包含Connection:keep-alive的响应，向同一个连接发送下一个请求，直到一方主动关闭连接。 Keep-alive在很多情况下能够重用连接，减少资源消耗，缩短响应时间HTTP<br><a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832653051fd44e44e4f9e4ed08f3e5a5ab550358d000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832653051fd44e44e4f9e4ed08f3e5a5ab550358d000</a></p>
-<p>Accept<br>表示浏览器支持的 MIME 类型<br>MIME的英文全称是 Multipurpose Internet Mail Extensions（多用途互联网邮件扩展）<br>eg： Accept：image/gif，表明客户端希望接受GIF图象格式的资源； Accept：text/html，表明客户端希望接受html文本。 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,<em>/</em>;q=0.8 意思：浏览器支持的 MIME 类型分别是 text/html、application/xhtml+xml、application/xml 和 <em>/</em>，优先顺序是它们从左到右的排列顺序。 Text：用于标准化地表示的文本信息，文本消息可以是多种字符集和或者多种格式的； Application：用于传输应用程序数据或者二进制数据；</p>
-<p>Content-Type<br>POST 提交，application/x-www-form-urlencoded 提交的数据按照 key1=val1&amp;key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。<br>User-Agent<br>浏览器类型<br>Referer<br>请求来自哪个页面，用户是从该 Referer URL页面访问当前请求的页面。<br>Accept-Encoding<br>浏览器支持的压缩编码类型，比如gzip,支持gzip的浏览器返回经gzip编码的HTML页面。<br>许多情形下这可以减少5到10倍的下载时间<br>eg： Accept-Encoding:gzip;q=1.0, identity; q=0.5, *;q=0 // 按顺序支持 gzip , identity 如果有多个Encoding同时匹配, 按照q值顺序排列 如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。<br>Accept-Language</p>
-<p>浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。<br>eg： Accept-Language:zh-cn 如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受。<br>Accept-Charset<br>浏览器可接受的字符集,用于指定客户端接受的字符集<br>eg： Accept-Charset:iso-8859-1,gb2312 ISO8859-1，通常叫做Latin-1。Latin-1包括了书写所有西方欧洲语言不可缺少的附加字符; gb2312是标准中文字符集; UTF-8 是 UNICODE 的一种变长字符编码，可以解决多种语言文本显示问题，从而实现应用国际化和本地化。 如果在请求消息中没有设置这个域，缺省是任何字符集都可以接受。</p>
-<p>7、响应状态码（响应状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值）<br>分类<br>分类描述<br>1<strong> 信息，服务器收到请求，需要请求者继续执行操作<br>2</strong> 成功，操作被成功接收并处理<br>3<strong> 重定向，需要进一步的操作以完成请求<br>4</strong> 客户端错误，请求包含语法错误或无法完成请求<br>5** 服务器错误，服务器在处理请求的过程中发生了错误</p>
-<p>◆200 (OK): 找到了该资源，并且一切正常。<br>◆301(Moved Permanently): 客户请求的文档在其他地方，新的URL在Location头中给出，浏览器应该自动地访问新的URL。<br>◆302 (Found): 类似于301，但新的URL应该被视为临时性的替代，而不是永久性的。<br>◆304 (NOT MODIFIED): 该资源在上次请求之后没有任何修改。这通常用于浏览器的缓存机制。<br>◆400 (Bad Request): 请求出现语法错误。<br>◆403 (FORBIDDEN): 客户端未能获得授权。这通常是在401之后输入了不正确的用户名或密码。<br>◆404 (NOT FOUND): 在指定的位置不存在所申请的资源。<br>◆500 (Internal Server Error): 服务器遇到了意料不到的情况，不能完成客户的请求<br>◆503 (Service Unavailable): 服务器由于维护或者负载过重未能应答。例如，Servlet可能在数据库连接池已满的情况下返回503。服务器返回503时可以提供一个Retry-After头</p>
-<p>Location<br>表示客户应当到哪里去提取文档,用于重定向接受者到一个新的位置<br>Server<br>服务器名字，包含了服务器用来处理请求的软件信息<br>eg: Server响应报头域的一个例子：<br>Server：Apache-Coyote/1.1 Set-Cookie<br>设置和页面关联的Cookie。<br>例如 前一个 cookie 被存入浏览器并且浏览器试图请求 <a href="http://www.ibm.com/foo/index.html" target="_blank" rel="external">http://www.ibm.com/foo/index.html</a> 时<br>Set-Cookie：customer=huangxp; path=/foo; domain=.ibm.com; expires= Wednesday, 19-OCT-05 23:12:40 GMT; Set-Cookie的每个属性解释如下：<br>Customer=huangxp 一个”名称＝值”对，把名称customer设置为值”huangxp”，这个属性在Cookie中必须有。<br>path=/foo 服务器路径。<br>domain=.ibm.com 指定cookie 的域名。<br>expires= Wednesday, 19-OCT-05 23:12:40 GMT 指定cookie 失效的时间</p>
-
-          
+          <p>1、工作原理<br><img src="/images/http1.png" alt=""><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/07/http/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -568,20 +563,14 @@
 
       
         
-          
-            <p>四大指数（关键词热度对比）<br>1、百度指数：<a href="http://index.baidu.com/" target="_blank" rel="external">http://index.baidu.com/</a><br>2、头条指数：<a href="https://index.toutiao.com/" target="_blank" rel="external">https://index.toutiao.com/</a><br>3、微指数：<a href="http://data.weibo.com/index" target="_blank" rel="external">http://data.weibo.com/index</a><br>4、微信指数<br>&lt;!– more –></p>
-<p>新媒体（公众号、微博排行榜）<br>1、新榜：<a href="http://www.newrank.cn/" target="_blank" rel="external">http://www.newrank.cn/</a><br>2、清博指数：<a href="http://www.gsdata.cn/" target="_blank" rel="external">http://www.gsdata.cn/</a></p>
-<p>APP（排行榜）<br>1、appannie <a href="https://www.appannie.com/cn/?_ref=footer" target="_blank" rel="external">https://www.appannie.com/cn/?_ref=footer</a><br>2、prioridata <a href="https://prioridata.com/?landing=true" target="_blank" rel="external">https://prioridata.com/?landing=true</a></p>
-<p>企业资质查询<br>1、天眼查：<a href="http://www.tianyancha.com/" target="_blank" rel="external">http://www.tianyancha.com/</a><br>2、企查查：<a href="http://www.qichacha.com/" target="_blank" rel="external">http://www.qichacha.com/</a></p>
-<p>网站流量：<br>1、<a href="https://www.similarweb.com/" target="_blank" rel="external">https://www.similarweb.com/</a><br>显示用户搜索的目标网站的在全球、对应的国家、网站类别下的流量综合排名情况。<br>具体的访问和流量数据，可以分桌面和手机APP来分别显示。可以显示网站的平均页面访问量，跳出率（bounce rate），平均访问时长，访问流量分布等。<br>SimilarWeb 把一个网站的流量的来源分为六个类型：直接来源，推荐网站，搜索，邮件，社交和展示广告，SimilarWeb 几乎能够显示任何网站的流量信息。</p>
-<p>2、<a href="https://ahrefs.com/" target="_blank" rel="external">https://ahrefs.com/</a>（外链查询）<br>Ahrefs的使用很简单，只要把你要查詢的网址输入就可以了<br>甚至还可以看到这些外链的來源<br>以及这些外链来源的权威程度</p>
-<p>3、<a href="http://keywordtool.io/" target="_blank" rel="external">http://keywordtool.io/</a>（关键字搜索）</p>
-<p>4、<a href="https://app.buzzsumo.com/research/most-shared" target="_blank" rel="external">https://app.buzzsumo.com/research/most-shared</a><br>BuzzSumo是一个很好的发现好内容和找到影响者的工具，它能帮助我们发现行业内被分享最多的内容，同时发现这些内容都是被谁分享的，即影响者是哪些人。BuzzSumo是一个很理想的社交媒体App，通过在其上面收集的信息，我们可以了解到，为了得到更多的流量和订阅量，我们应该创建什么类型的内容。<br>引用自：亿恩</p>
-<p>5、<a href="https://www.owler.com/?targetURL=https://www.owler.com/iaApp/home.htm" target="_blank" rel="external">https://www.owler.com/?targetURL=https://www.owler.com/iaApp/home.htm</a></p>
-<p>6、爱站：<a href="http://www.aizhan.com/" target="_blank" rel="external">http://www.aizhan.com/</a>（关键词挖掘、外链查询、百度权重查询）</p>
-<p>域名交易：<a href="http://www.ename.com/" target="_blank" rel="external">http://www.ename.com/</a></p>
-
-          
+          <p>四大指数（关键词热度对比）<br>1、百度指数：<a href="http://index.baidu.com/" target="_blank" rel="external">http://index.baidu.com/</a><br>2、头条指数：<a href="https://index.toutiao.com/" target="_blank" rel="external">https://index.toutiao.com/</a><br>3、微指数：<a href="http://data.weibo.com/index" target="_blank" rel="external">http://data.weibo.com/index</a><br>4、微信指数<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/07/shujufenxi/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
