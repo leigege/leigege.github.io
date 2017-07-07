@@ -1,0 +1,688 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1、工作原理\&amp;lt;!– more –&amp;gt;2、客户端请求消息格式客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。 3、请求样例4、服务端相应消息格式服务器和客户端的交互仅限于请求/响应过程，结束之后便断开， 在下一次请求服务器会认为新的客户端;为了维护他们之间的链接，让">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP请求介绍">
+<meta property="og:url" content="http://yoursite.com/2017/07/07/http/index.html">
+<meta property="og:site_name" content="黑产、赚钱思路">
+<meta property="og:description" content="1、工作原理\&amp;lt;!– more –&amp;gt;2、客户端请求消息格式客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。 3、请求样例4、服务端相应消息格式服务器和客户端的交互仅限于请求/响应过程，结束之后便断开， 在下一次请求服务器会认为新的客户端;为了维护他们之间的链接，让">
+<meta property="og:image" content="http://yoursite.com/images/http1.png">
+<meta property="og:image" content="http://yoursite.com/images/http2.png">
+<meta property="og:image" content="http://yoursite.com/images/http3.png">
+<meta property="og:image" content="http://yoursite.com/images/http4.png">
+<meta property="og:image" content="http://yoursite.com/images/http5.png">
+<meta property="og:updated_time" content="2017-07-07T04:59:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP请求介绍">
+<meta name="twitter:description" content="1、工作原理\&amp;lt;!– more –&amp;gt;2、客户端请求消息格式客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。 3、请求样例4、服务端相应消息格式服务器和客户端的交互仅限于请求/响应过程，结束之后便断开， 在下一次请求服务器会认为新的客户端;为了维护他们之间的链接，让">
+<meta name="twitter:image" content="http://yoursite.com/images/http1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/07/http/"/>
+
+
+
+
+
+  <title>HTTP请求介绍 | 黑产、赚钱思路</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f2a1e9ca9b3e7d3de3c86a1e8db9bf7f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">黑产、赚钱思路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/07/http/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bjlbeyond">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/WechatIMG3.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黑产、赚钱思路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTTP请求介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-07T12:59:13+08:00">
+                2017-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/07/07/http/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+
+          
+
+          
+
+      
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1、工作原理<br><img src="/images/http1.png" alt=""><br>\&lt;!– more –><br>2、客户端请求消息格式<br>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：请求行（request line）、请求头部（header）、空行和请求数据四个部分组成，下图给出了请求报文的一般格式。<br><img src="/images/http2.png" alt=""></p>
+<p>3、请求样例<br><img src="/images/http3.png" alt=""><br>4、服务端相应消息格式<br><img src="/images/http4.png" alt=""><br>服务器和客户端的交互仅限于请求/响应过程，结束之后便断开， 在下一次请求服务器会认为新的客户端;<br>为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，<br>Cookie通过在客户端记录信息确定用户身份<br>Session通过在服务器端记录信息确定用户身份<br>5、URL介绍<br>统一资源定位符（URL，英语 Uniform / Universal Resource Locator的缩写）是用于完整地描述Internet上网页和其他资源的地址的一种标识方法。<br>URL格式：<br>基本格式如下 schema://host<a href="#">:port#</a>/path/…/<a href="#">?query-string</a><a href="#">#anchor</a><br>schema 协议(例如：http, https, ftp)<br>host 服务器的IP地址或者域名<br>port# 服务器的端口（如果是走协议默认端口，缺省端口80）<br>path 访问资源的路径<br>query-string 参数，发送给http服务器的数据<br>anchor- 锚（跳转到网页的指定锚点位置）<br><img src="/images/http5.png" alt=""><br>例子:<br><a href="http://www.sina.com.cn/" target="_blank" rel="external">http://www.sina.com.cn/</a><br><a href="http://192.168.0.116:8080/index.jsp" target="_blank" rel="external">http://192.168.0.116:8080/index.jsp</a><br><a href="http://item.jd.com/11052214.html#product-detail" target="_blank" rel="external">http://item.jd.com/11052214.html#product-detail</a><br><a href="http://www.website.com/test/test.aspx?name=sv&amp;x=true#stuff" target="_blank" rel="external">http://www.website.com/test/test.aspx?name=sv&amp;x=true#stuff</a></p>
+<p>6、常用的消息请求头<br>Host<br>Host初始URL中的主机和端口,用于指定被请求资源的Internet主机和端口号，它通常从HTTP URL中提取出来的<br>Connection<br>表示客户端与服务连接类型；<br>client 发起一个包含Connection:keep-alive的请求<br>server收到请求后，如果server支持keepalive，回复一个包含Connection:keep-alive的响应，不关闭连接，否则回复一个包含Connection:close的响应，关闭连接。<br>如果client收到包含Connection:keep-alive的响应，向同一个连接发送下一个请求，直到一方主动关闭连接。 Keep-alive在很多情况下能够重用连接，减少资源消耗，缩短响应时间HTTP<br><a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832653051fd44e44e4f9e4ed08f3e5a5ab550358d000" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832653051fd44e44e4f9e4ed08f3e5a5ab550358d000</a></p>
+<p>Accept<br>表示浏览器支持的 MIME 类型<br>MIME的英文全称是 Multipurpose Internet Mail Extensions（多用途互联网邮件扩展）<br>eg： Accept：image/gif，表明客户端希望接受GIF图象格式的资源； Accept：text/html，表明客户端希望接受html文本。 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,<em>/</em>;q=0.8 意思：浏览器支持的 MIME 类型分别是 text/html、application/xhtml+xml、application/xml 和 <em>/</em>，优先顺序是它们从左到右的排列顺序。 Text：用于标准化地表示的文本信息，文本消息可以是多种字符集和或者多种格式的； Application：用于传输应用程序数据或者二进制数据；</p>
+<p>Content-Type<br>POST 提交，application/x-www-form-urlencoded 提交的数据按照 key1=val1&amp;key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。<br>User-Agent<br>浏览器类型<br>Referer<br>请求来自哪个页面，用户是从该 Referer URL页面访问当前请求的页面。<br>Accept-Encoding<br>浏览器支持的压缩编码类型，比如gzip,支持gzip的浏览器返回经gzip编码的HTML页面。<br>许多情形下这可以减少5到10倍的下载时间<br>eg： Accept-Encoding:gzip;q=1.0, identity; q=0.5, *;q=0 // 按顺序支持 gzip , identity 如果有多个Encoding同时匹配, 按照q值顺序排列 如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。<br>Accept-Language</p>
+<p>浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。<br>eg： Accept-Language:zh-cn 如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受。<br>Accept-Charset<br>浏览器可接受的字符集,用于指定客户端接受的字符集<br>eg： Accept-Charset:iso-8859-1,gb2312 ISO8859-1，通常叫做Latin-1。Latin-1包括了书写所有西方欧洲语言不可缺少的附加字符; gb2312是标准中文字符集; UTF-8 是 UNICODE 的一种变长字符编码，可以解决多种语言文本显示问题，从而实现应用国际化和本地化。 如果在请求消息中没有设置这个域，缺省是任何字符集都可以接受。</p>
+<p>7、响应状态码（响应状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值）<br>分类<br>分类描述<br>1<strong> 信息，服务器收到请求，需要请求者继续执行操作<br>2</strong> 成功，操作被成功接收并处理<br>3<strong> 重定向，需要进一步的操作以完成请求<br>4</strong> 客户端错误，请求包含语法错误或无法完成请求<br>5** 服务器错误，服务器在处理请求的过程中发生了错误</p>
+<p>◆200 (OK): 找到了该资源，并且一切正常。<br>◆301(Moved Permanently): 客户请求的文档在其他地方，新的URL在Location头中给出，浏览器应该自动地访问新的URL。<br>◆302 (Found): 类似于301，但新的URL应该被视为临时性的替代，而不是永久性的。<br>◆304 (NOT MODIFIED): 该资源在上次请求之后没有任何修改。这通常用于浏览器的缓存机制。<br>◆400 (Bad Request): 请求出现语法错误。<br>◆403 (FORBIDDEN): 客户端未能获得授权。这通常是在401之后输入了不正确的用户名或密码。<br>◆404 (NOT FOUND): 在指定的位置不存在所申请的资源。<br>◆500 (Internal Server Error): 服务器遇到了意料不到的情况，不能完成客户的请求<br>◆503 (Service Unavailable): 服务器由于维护或者负载过重未能应答。例如，Servlet可能在数据库连接池已满的情况下返回503。服务器返回503时可以提供一个Retry-After头</p>
+<p>Location<br>表示客户应当到哪里去提取文档,用于重定向接受者到一个新的位置<br>Server<br>服务器名字，包含了服务器用来处理请求的软件信息<br>eg: Server响应报头域的一个例子：<br>Server：Apache-Coyote/1.1 Set-Cookie<br>设置和页面关联的Cookie。<br>例如 前一个 cookie 被存入浏览器并且浏览器试图请求 <a href="http://www.ibm.com/foo/index.html" target="_blank" rel="external">http://www.ibm.com/foo/index.html</a> 时<br>Set-Cookie：customer=huangxp; path=/foo; domain=.ibm.com; expires= Wednesday, 19-OCT-05 23:12:40 GMT; Set-Cookie的每个属性解释如下：<br>Customer=huangxp 一个”名称＝值”对，把名称customer设置为值”huangxp”，这个属性在Cookie中必须有。<br>path=/foo 服务器路径。<br>domain=.ibm.com 指定cookie 的域名。<br>expires= Wednesday, 19-OCT-05 23:12:40 GMT 指定cookie 失效的时间</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/07/shujufenxi/" rel="next" title="数据分析工具、引流工作者必备 （干货）">
+                <i class="fa fa-chevron-left"></i> 数据分析工具、引流工作者必备 （干货）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/07/fiddler/" rel="prev" title="抓包工具Fiddler">
+                抓包工具Fiddler <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/WechatIMG3.jpeg"
+               alt="bjlbeyond" />
+          <p class="site-author-name" itemprop="name">bjlbeyond</p>
+           
+              <p class="site-description motion-element" itemprop="description">分享黑产内幕(批判)、赚钱思路(积极正能量)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bjlbeyond</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "26c7a53c00f3498fba311e3e6506f2e6",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 背景动画 -->
+<script type="text/javascript" src="/js/src/particle.js"></script>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+</body>
+</html>
